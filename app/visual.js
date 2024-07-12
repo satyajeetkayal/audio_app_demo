@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { Link, Stack, useNavigation } from 'expo-router';
 import { View, Button, StyleSheet, Dimensions } from 'react-native';
 import { Audio } from 'expo-av';
 import Svg, { Polyline } from 'react-native-svg';
@@ -28,6 +29,8 @@ export default function Visualizer() {
         { shouldPlay: false }
       );
       setAudioData(sound);
+
+     
       sound.setOnPlaybackStatusUpdate((status) => {
         if (status.isPlaying) {
           
@@ -116,6 +119,18 @@ export default function Visualizer() {
 
   return (
     <View style={styles.container}>
+      <Stack.Screen
+        options={{
+          title: 'Visualizer',
+          headerStyle: { backgroundColor: '#f4511e' },
+          headerTintColor: '#fff',
+          headerTitleStyle: {
+            fontWeight: 'bold',
+          },
+
+         
+        }}
+      />
       <View style={styles.waveContainer}>
       <Svg height='200' width={Dimensions.get("screen").width/1.25}>
   

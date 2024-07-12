@@ -1,12 +1,17 @@
-import { Link, Stack } from 'expo-router';
+import { Link, Stack, useNavigation } from 'expo-router';
 import { Image, Text, View, StyleSheet, Button, Dimensions } from 'react-native';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import * as DocumentPicker from 'expo-document-picker';
 
 
 
 export default function Home() {
   const [fileName, setFileName] = useState([]);
+  const navigation= useNavigation()
+
+  // useEffect(() => {
+  //   navigation.setOptions({ headerShown: false });
+  // }, [navigation]);
 
   const pickDocument = async () => {
     let result = await DocumentPicker.getDocumentAsync({ type: 'audio/*', copyToCacheDirectory:true })
@@ -21,6 +26,18 @@ export default function Home() {
   };
   return (
     <View style={styles.container}>
+      <Stack.Screen
+        options={{
+          title: 'Home',
+          headerStyle: { backgroundColor: '#f4511e' },
+          headerTintColor: '#fff',
+          headerTitleStyle: {
+            fontWeight: 'bold',
+          },
+
+         
+        }}
+      />
        {fileName ? <Text  style={styles.title}>{fileName[0]?.name}</Text> : null}
       <Button title="Pick an Audio File" onPress={pickDocument} />
       <Link style={styles.link} href={{ pathname: 'visual', params: { name: fileName[0]?.uri } }}>Go to Visualizer</Link>
